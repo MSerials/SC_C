@@ -55,6 +55,11 @@ protected:
 	afx_msg void OnUpdateFilePrintPreview(CCmdUI* pCmdUI);
 	DECLARE_MESSAGE_MAP()
 
+
+private:
+	int m_sign;
+	int guest;
+
 };
 
 
