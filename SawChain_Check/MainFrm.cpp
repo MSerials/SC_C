@@ -17,6 +17,7 @@
 
 #include "MainFrm.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -41,6 +42,12 @@ CMainFrame::CMainFrame()
 {
 	// TODO: 在此添加成员初始化代码
 	theApp.m_nAppLook = theApp.GetInt(_T("ApplicationLook"), ID_VIEW_APPLOOK_OFF_2007_BLUE);
+
+
+	SCM.Init();
+	if (SCM.mc_vector.size() == 0)
+		AfxMessageBox(L"没有找到任何卡");
+
 }
 
 CMainFrame::~CMainFrame()
@@ -88,6 +95,12 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 		return FALSE;
 	// TODO: 在此处通过修改
 	//  CREATESTRUCT cs 来修改窗口类或样式
+
+
+
+
+	
+
 
 	return TRUE;
 }

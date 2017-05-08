@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include <string>
-#include <math>
+#include <math.h>
 
 
 
@@ -41,16 +41,154 @@
 #define MSG_IO_CARD				 (WM_USER+101)
 
 
+#ifndef UINT
+#define UINT unsigned int
+#endif
 
 
-class CMotionCard : public CObject
+enum
+{
+	CONVEYOR_STOP,
+	CONVEYOR_CW,
+	CONVEYOR_CCW
+};
+
+class CMotionCard
 {
 public:
 	CMotionCard();
-	virtual ~CMotionCard();
+	~CMotionCard();
 
 	//纯虚函数，子类必须去实现这个东西
-	virtual std::string get_vendor() = 0;
+
+	LRESULT		   m_ErrCode;
+	LONG		   m_DriverHandle;
+	unsigned char  m_szErrorMsg[40];
+
+	BOOL m_iInput[dwPortCount][dwPortBit];
+	BOOL m_iOutput[dwPortCount][dwPortBit];
+
+	USHORT m_mcInput[TOTAL_CARD_NUM];
+	USHORT m_mcOutput[TOTAL_CARD_NUM];
+	long lTargetPos;
+	BOOL WriteLOUJ;
+
+public:
+	virtual UINT Init() = 0;
+
+	virtual std::string get_vendor() ;
+	
+	virtual BOOL WriteOutPutBit(short BitNo, short BitData);
+	
+	virtual void EStopMove(short axis);
+
+	virtual void StartTMove(short axis, long Dist, long Vel, long MaxVel, double Tacc);
+
+	virtual void StartTVMove(short axis, long strVel, long MaxVel, double Tacc) ;
+	
+	virtual long ReadPosition(short axis);
+
+	virtual DWORD ReadOutPutBit(short BitNo);
+
+	virtual DWORD ReadInPutBit(short BitNo);
+
+	virtual UINT WaitSensorTimeOutPos(short ibit, DWORD dwSensorTime, DWORD dwOverTime = 1000);
+
+	virtual bool WaitSensor(short Bits, long TimeOut = 1000) = 0;
+
+	virtual bool WaitSensorInv(short Bits, long TimeOut = 1000) = 0;
+	
+	virtual UINT WaitSensorTimeOutNeg(short iPort, UINT iChanIN, DWORD dwSensorTime, DWORD dwOverTime = 1000);
+
+	virtual UINT WaitMotorDoneTimeOut(short Axis, DWORD dwOverTime = 1000);
+
+	virtual UINT StartOrigin();
+
+	virtual void ConveyorSTOP() = 0;
+	//传送带反转
+	//override
+	virtual void ConveyorCCW() = 0;
+	//传送带正转
+	//override
+	virtual void ConveyorCW() = 0;
+
+public:
+	virtual void SetConveyorState(int state) { ConveyorState = state;};
+	virtual int GetConveyorState() { return ConveyorState;}
+private:
+	int ConveyorState;
+
+	BOOL m_bHomeStop;
+
+
+	//motion card
+
+
+	BOOL InitMotionCard(short iCardNum);
+	BOOL ScanMotionCard(HWND hWnd, UINT iMsg);
+
+	BOOL ResumeScanThread();
+	BOOL SuspendScanThread();
+
+	BOOL WaitMoveDone(short iAxis);
+
+	BOOL  CheckEStop(DWORD dwOverTime = 0, short iCardID = 0, short iAxis = 0);
+
+	long   UnitToPulse(short iAxis, const double dValue);
+	double PulseToUnit(short iAxis, const long  dValue);
+
+
+
+
+
+
+
+	CString GetErrorString();
+	short   GetErrorID() { return m_nCardError; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+private:
+	short m_nCardError;
+	short m_nCardID;
+	short m_nAxisID;
+	long m_lTargetPos[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	long m_lCurrentPos[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	long m_lProfilePos[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	double m_dDefaultVel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	double m_dDefaultAcc[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	double m_dDefaultJOGVel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	double m_dDefaultJOGAcc[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	double m_dDefaultHomeVel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	double m_dDefaultHomeAcc[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	double m_dScaleNumerator[MAX_AXIS_LEN];
+	double m_dScaleDenominator[MAX_AXIS_LEN];
+	bool m_bPosLimitLevel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	bool m_bNegLimitLevel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	bool m_bDrvAlarmLevel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	bool m_bMotorHomeLevel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	bool m_bMotorIndexLevel[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	bool m_bEStop[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	bool m_bStop[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	bool m_bMoveDone[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	CString m_strError;
+	CEvent m_EventSkipScan;
+	CEvent m_EventSkipScan1;
+	CEvent m_EventEstop[TOTAL_CARD_NUM][MAX_AXIS_LEN];;
+	CEvent m_EventMoveDone[TOTAL_CARD_NUM][MAX_AXIS_LEN];
+	CCriticalSection m_CriticalCard;
+	CCriticalSection m_CriticalIOCard;
 
 };
 

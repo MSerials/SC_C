@@ -1,5 +1,11 @@
 #pragma once
 
+
+
+#include "MotionCard.h"
+#include "DMC1380Card.h"
+#include <vector>
+
 // SawChainMachine 命令目标
 //这个机器的类，包含了动作，相机等等
 
@@ -49,12 +55,20 @@ public:
 	//检测刀片磨了没有
 	virtual int check_knife();//
 
+	//action
 	virtual void system_start();
 	virtual void system_pause();
 	virtual void system_stop();
+	virtual void system_reset();
+
+	//void Conveyor_running(int ChainNo);
+	void Conveyor_running(int ChainNo); 
+	static UINT Procedure(LPVOID lParam);
+	virtual UINT CheckAllSensorState();
 
 	int get_counter() { return m_counter; }
-
+	std::vector<CMotionCard*> mc_vector;
+	
 protected:
 	DWORD m_TopDoubleKnifeSensor;
 	DWORD m_BottomDoubleKnifeSensor;
@@ -64,9 +78,26 @@ protected:
 	DWORD m_TopCameraResult; 
 	DWORD m_BottomCameraResult;
 
+	CMotionCard * mc;
+	
 private:
 	int m_system_state;
 	int m_counter;
+	
+	int m_ng_counter;
+	int stack_index;
+	DMC1380Card * dmc1380;
+
+	struct KNODE
+	{
+		unsigned int TopError; //存储连接片错误类型
+		unsigned int BottomError;
+
+		unsigned int TopKnife;  //为了触发相机检测刀口未磨
+		unsigned int BottomKnife;
+
+		unsigned int kind; //存储连接片是刀片还是传动片类型
+	}*m_knode;
 };
 
 

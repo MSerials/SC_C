@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include "SawChainMachine.h"
+
 class CMainFrame : public CFrameWndEx
 {
 	
@@ -56,11 +58,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 
-private:
-	int m_sign;
-	int guest;
-	int test;
-	int testf;
+public:
+	SawChainMachine SCM;
 
 };
 

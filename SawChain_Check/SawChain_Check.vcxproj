@@ -51,7 +51,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
@@ -186,6 +186,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DMC1380Card.h" />
+    <ClInclude Include="globle.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MotionCard.h" />
     <ClInclude Include="Resource.h" />
@@ -197,6 +199,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DMC1380Card.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MotionCard.cpp" />
     <ClCompile Include="SawChainMachine.cpp" />
