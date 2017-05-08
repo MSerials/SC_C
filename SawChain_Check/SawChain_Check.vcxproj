@@ -187,7 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MotionCard.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SawChainMachine.h" />
     <ClInclude Include="SawChain_Check.h" />
     <ClInclude Include="SawChain_CheckDoc.h" />
     <ClInclude Include="SawChain_CheckView.h" />
@@ -196,6 +198,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MotionCard.cpp" />
+    <ClCompile Include="SawChainMachine.cpp" />
     <ClCompile Include="SawChain_Check.cpp" />
     <ClCompile Include="SawChain_CheckDoc.cpp" />
     <ClCompile Include="SawChain_CheckView.cpp" />

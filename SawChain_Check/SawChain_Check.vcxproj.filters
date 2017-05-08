@@ -39,6 +39,12 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SawChainMachine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionCard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SawChain_Check.cpp">
@@ -54,6 +60,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SawChain_CheckView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SawChainMachine.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionCard.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

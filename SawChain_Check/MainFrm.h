@@ -60,6 +60,7 @@ private:
 	int m_sign;
 	int guest;
 	int test;
+	int testf;
 
 };
 
