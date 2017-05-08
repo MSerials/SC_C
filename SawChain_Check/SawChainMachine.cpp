@@ -70,4 +70,5 @@ void SawChainMachine::system_pause()
 void SawChainMachine::system_stop()
 {
 	m_system_state = STOP;
+
 }
