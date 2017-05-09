@@ -57,6 +57,9 @@
     <ClInclude Include="DockPane.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="x64\Tool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SawChain_Check.cpp">

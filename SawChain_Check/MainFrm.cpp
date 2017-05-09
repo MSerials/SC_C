@@ -16,6 +16,7 @@
 #include "SawChain_Check.h"
 
 #include "MainFrm.h"
+#include "Tool.h"
 
 
 #ifdef _DEBUG
@@ -55,15 +56,45 @@ CMainFrame::CMainFrame()
 
 
 
+#if 0
+	//读取ini，初始化界面参数等等
+	win_tool wt;
+	CString AppPath;
+	::GetModuleFileName(GetModuleHandle(NULL), AppPath.GetBuffer(300), 300);
+	AppPath.ReleaseBuffer();
+	CString PrjPath = AppPath.Left(AppPath.ReverseFind('\\'));
+	AppPath = PrjPath + L"\\" + L"Configuration";
+	//AfxMessageBox(AppPath);
+	g.prjini.SetIniDir(AppPath, false);
+	if (0 == g.prjini.SetIniFile(L"PrgParameter.ini"))
+	{
+		g.prjini.InitData();
+		g.prjini.SaveParaFile(PARA_ALL);
+	}
+	g.prjini.LoadParaFile(PARA_ALL);
+
+	if (g.prjini.m_Prj_Vector.IsEmpty()) { g.prjini.m_Prj_Vector = L"1"; g.prjini.SaveParaFile(PARA_PRJ); }
+	vector<CString> strvec = wt.SplitCString(g.prjini.m_Prj_Vector, L",");
+
+	if (g.prjini.m_Prj_index > strvec.size()) { g.prjini.m_Prj_index = 0; g.prjini.SaveParaFile(PARA_PRJ); }
+	g.prjini.m_Prj_Name = strvec[g.prjini.m_Prj_index];
+
+	PrjPath += L"\\" + g.prjini.m_Prj_Name;
+
+	g.ini.SetIniDir(PrjPath, false);
+	if (0 == g.ini.SetIniFile(L"PrgParameter.ini"))
+	{
+		g.ini.InitData();
+		g.ini.SaveParaFile(PARA_ALL);
+	}
+	g.ini.LoadParaFile(PARA_ALL);
 
 
 
 
 
 
-
-
-
+#endif
 
 
 
