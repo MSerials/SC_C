@@ -69,6 +69,7 @@ CMainFrame::CMainFrame()
 
 
 
+
 	SCM.Init();
 	if (SCM.mc_vector.size() == 0)
 		AfxMessageBox(L"没有找到任何卡");
