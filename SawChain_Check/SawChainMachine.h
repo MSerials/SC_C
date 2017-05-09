@@ -63,12 +63,15 @@ public:
 
 	//void Conveyor_running(int ChainNo);
 	void Conveyor_running(int ChainNo); 
-	static UINT Procedure(LPVOID lParam);
+	UINT Procedure();
 	virtual UINT CheckAllSensorState();
+	virtual void PushAllCylinderBack();
 
 	int get_counter() { return m_counter; }
-	std::vector<CMotionCard*> mc_vector;
+	virtual CMotionCard * CurrentMotionCard();// { if (stack_index < 0) return NULL; return mc_vector[stack_index]; }
 	
+
+	std::vector<CMotionCard*> mc_vector;
 protected:
 	DWORD m_TopDoubleKnifeSensor;
 	DWORD m_BottomDoubleKnifeSensor;
@@ -79,14 +82,22 @@ protected:
 	DWORD m_BottomCameraResult;
 
 	CMotionCard * mc;
-	
 private:
 	int m_system_state;
 	int m_counter;
 	
 	int m_ng_counter;
 	int stack_index;
+
+	
 	DMC1380Card * dmc1380;
+
+	class Controller //øÿ÷∆–≈œ¢
+	{
+	public:
+		Controller() {};
+		~Controller() {};
+	};
 
 	struct KNODE
 	{

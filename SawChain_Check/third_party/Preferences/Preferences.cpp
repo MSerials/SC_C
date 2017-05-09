@@ -1,12 +1,11 @@
+#include "../../stdafx.h"
 
-#include "../stdafx.h"
 // Preferences.cpp: implementation of the CPreferences class.
 //
 //////////////////////////////////////////////////////////////////////
 
-//#include "../stdafx.h"
-//#include "djiajiao.h"
-#include "../include/Preferences.h"
+
+#include "Preferences.h"
 #include <fstream>
 
 #pragma warning(disable:4996)
@@ -612,22 +611,7 @@ void CPreferences::LoadParaFile(UINT item)
 
 		if (PARA_IO == (mask&PARA_IO))
 		{
-			deviceNumber = GetValueI(L"IOCARD_SETTING", L"DEVICE_NUM" );
-			m_nTriggerIdPort1 = GetValueI(L"IOCARD_SETTING", L"TriggerIdPort1" );
-			m_nTriggerIdPort2 = GetValueI(L"IOCARD_SETTING", L"TriggerIdPort2" );
-			m_nTriggerIdPort3 = GetValueI(L"IOCARD_SETTING", L"TriggerIdPort3" );
-			m_nTriggerIdPort4 = GetValueI(L"IOCARD_SETTING", L"TriggerIdPort4");
-			m_MotorSpinWise = GetValueI(L"IOCARD_SETTING", L"MotorSpinWise" );
-			m_MotorSpinWaves = GetValueI(L"IOCARD_SETTING", L"MotorSpinWaves");
-			m_MotorSpinSpeed = GetValueI(L"IOCARD_SETTING", L"MotorSpinSpeed");
-			m_MotorSpinWavesPerTime = GetValueI(L"IOCARD_SETTING", L"MotorSpinWavesPerTime");
-			m_MotorCompenstate = GetValueI(L"IOCARD_SETTING", L"OringinCompenstate");
-			m_mode = GetValueI(L"IOCARD_SETTING", L"mode");
-			m_MotorSpinWise1 = GetValueI(L"IOCARD_SETTING", L"MotorSpinWise1");
-			m_MotorSpinWaves1 = GetValueI(L"IOCARD_SETTING", L"MotorSpinWaves1");
-			m_MotorSpinSpeed1 = GetValueI(L"IOCARD_SETTING", L"MotorSpinSpeed1");
-			m_MotorSpinWavesPerTime1 = GetValueI(L"IOCARD_SETTING", L"MotorSpinWavesPerTime1");
-			m_MotorCompenstate1 = GetValueI(L"IOCARD_SETTING", L"OringinCompenstate1");
+
 			m_mode1 = GetValueI(L"IOCARD_SETTING", L"mode1");
 		}
 	
@@ -704,22 +688,7 @@ void CPreferences::SaveParaFile(UINT item)
 	}
 	if(PARA_IO==(mask&PARA_IO))
 	{
-		SetValueI(L"IOCARD_SETTING", L"DEVICE_NUM", deviceNumber);
-		SetValueI(L"IOCARD_SETTING", L"TriggerIdPort1", m_nTriggerIdPort1);
-		SetValueI(L"IOCARD_SETTING", L"TriggerIdPort2", m_nTriggerIdPort2);
-		SetValueI(L"IOCARD_SETTING", L"TriggerIdPort3", m_nTriggerIdPort3);
-		SetValueI(L"IOCARD_SETTING", L"TriggerIdPort4", m_nTriggerIdPort4);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinWise", m_MotorSpinWise);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinWaves", m_MotorSpinWaves);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinSpeed", m_MotorSpinSpeed);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinWavesPerTime",  m_MotorSpinWavesPerTime);
-		SetValueI(L"IOCARD_SETTING", L"OringinCompenstate", m_MotorCompenstate);
-		SetValueI(L"IOCARD_SETTING", L"mode", m_mode);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinWise1", m_MotorSpinWise1);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinWaves1", m_MotorSpinWaves1);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinSpeed1", m_MotorSpinSpeed1);
-		SetValueI(L"IOCARD_SETTING", L"MotorSpinWavesPerTime1", m_MotorSpinWavesPerTime1);
-		SetValueI(L"IOCARD_SETTING", L"OringinCompenstate1", m_MotorCompenstate1);
+
 		SetValueI(L"IOCARD_SETTING", L"mode1", m_mode1);
 	}
 	
@@ -792,22 +761,5 @@ void CPreferences::initData()
 	m_nSear_W = 0;
 	m_nSear_H = 0;
 
-	//IO卡 #define PARA_IO				(0x1<<2)
-	deviceNumber;			//IO卡序列号
-	m_nTriggerIdPort1 = 0x1;		//触发拍照
-	m_nTriggerIdPort2 = 0x2;		//感应器？
-	m_nTriggerIdPort3 = 0x3;		//原点感应器？
-	m_nTriggerIdPort4 = 0x4;
-	m_MotorSpinWise = 1;
-	m_MotorSpinWaves = 1600;
-	m_MotorSpinSpeed = 80000;
-	m_MotorSpinWavesPerTime = 1000;
-	m_MotorCompenstate = 1600;
-	m_mode = 0;
-	m_MotorSpinWise1 = 1;
-	m_MotorSpinWaves1 = 1600;
-	m_MotorSpinSpeed1 = 230000;
-	m_MotorSpinWavesPerTime1 = 1600;
-	m_MotorCompenstate1 = 1600;
 	m_mode1 = 0;
 }

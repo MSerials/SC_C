@@ -133,15 +133,16 @@ void SawChainMachine::Conveyor_running(int ChainNo)
 {
 }
 
-UINT SawChainMachine::Procedure(LPVOID lParam)
+UINT SawChainMachine::Procedure()
 {
-#if 0
-	HWND hWnd = (HWND)lParam;
+	if (stack_index < 0) return NOCARD;//NoCard
+	CMotionCard * mc = mc_vector[stack_index];
 	while (CheckAllSensorState()) {
 		PushAllCylinderBack();
-		AfxMessageBox("气缸上限不亮，请检查");
+		AfxMessageBox(L"气缸上限不亮，请检查");
 		Sleep(200);
 	}
+#if 0
 
 	switch (pMainFrm->ConveyorFlag)
 	{
@@ -240,16 +241,31 @@ UINT SawChainMachine::Procedure(LPVOID lParam)
 	}
 	return TRUE;
 #endif
-		return 1;
+		return NORMAL;
 }
 
 UINT SawChainMachine::CheckAllSensorState()
 {
-#if 0
-	return (mc_vector[stack_index].ReadInputBit(IN_CYL_Press_UP_SENSOR) &&
-		mc->ReadInputBit(IN_CYL_Push_UP_SENSOR) &&
-		mc->ReadInputBit(IN_CYL_Magnet_SENSOR));
-#endif
-	return 1;
+	CMotionCard * mc = mc_vector[stack_index];
+	return (mc->ReadInPutBit(IN_CYL_Press_UP_SENSOR)
+		&& mc->ReadInPutBit(IN_CYL_Push_UP_SENSOR)
+		&& mc->ReadInPutBit(IN_CYL_Magnet_SENSOR)
+		);
+}
+
+void SawChainMachine::PushAllCylinderBack()
+{
+	CMotionCard * mc = mc_vector[stack_index];
+	mc->WriteOutPutBit(OUT_Mark, 1);
+	mc->WriteOutPutBit(OUT_CYL_Press, 1);
+	mc->WriteOutPutBit(OUT_CYL_Push, 1);
+	mc->WriteOutPutBit(OUT_CYL_Magnet, 1);
+	mc->WriteOutPutBit(OUT_Magnet, 1);//磁铁断电
+}
+
+CMotionCard * SawChainMachine::CurrentMotionCard()
+{
+	if (stack_index < 0) return nullptr; 
+	return mc_vector[stack_index]; 
 }
 

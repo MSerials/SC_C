@@ -14,7 +14,9 @@
 
 #pragma once
 
+#include "DockPane.h"
 #include "SawChainMachine.h"
+#include "third_party\Preferences\Preferences.h"
 
 class CMainFrame : public CFrameWndEx
 {
@@ -55,12 +57,14 @@ protected:
 	afx_msg void OnFilePrint();
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnUpdateFilePrintPreview(CCmdUI* pCmdUI);
+	afx_msg void OnButtonSysctrl();
 	DECLARE_MESSAGE_MAP()
 
 
 public:
 	SawChainMachine SCM;
-
+	CPreferences ini;
+	CPreferences sys;	
 };
 
 

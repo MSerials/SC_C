@@ -119,21 +119,30 @@ UINT DMC1380Card::StartOrigin()
 
 void DMC1380Card::ConveyorSTOP()
 {
+	for(int  i = 0;i<MAX_COUNTER;i++)
+	{
 	d1000_out_bit(OUT_ConveyerCCW, 1);
 	d1000_out_bit(OUT_ConveyerCW, 1);
+	}
 	SetConveyorState(CONVEYOR_STOP);		
 }
 
 void DMC1380Card::ConveyorCCW()
 {
-	d1000_out_bit(OUT_ConveyerCCW, 1);
-	d1000_out_bit(OUT_ConveyerCW, 0);
+	for (int i = 0; i < MAX_COUNTER; i++)
+	{
+		d1000_out_bit(OUT_ConveyerCCW, 1);
+		d1000_out_bit(OUT_ConveyerCW, 0);
+	}
 	SetConveyorState(CONVEYOR_CCW);
 }
 
 void DMC1380Card::ConveyorCW()
 {
-	d1000_out_bit(OUT_ConveyerCCW, 0);
-	d1000_out_bit(OUT_ConveyerCW, 1);
+	for (int i = 0; i < MAX_COUNTER; i++)
+	{
+		d1000_out_bit(OUT_ConveyerCW, 1);
+		d1000_out_bit(OUT_ConveyerCCW, 0);
+	}
 	SetConveyorState(CONVEYOR_CW);
 }

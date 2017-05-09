@@ -34,6 +34,7 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_COMMAND(ID_FILE_PRINT_DIRECT, &CMainFrame::OnFilePrint)
 	ON_COMMAND(ID_FILE_PRINT_PREVIEW, &CMainFrame::OnFilePrintPreview)
 	ON_UPDATE_COMMAND_UI(ID_FILE_PRINT_PREVIEW, &CMainFrame::OnUpdateFilePrintPreview)
+	ON_COMMAND(ID_BUTTON_SYSCTRL, &CMainFrame::OnButtonSysctrl)
 END_MESSAGE_MAP()
 
 // CMainFrame 构造/析构
@@ -42,6 +43,30 @@ CMainFrame::CMainFrame()
 {
 	// TODO: 在此添加成员初始化代码
 	theApp.m_nAppLook = theApp.GetInt(_T("ApplicationLook"), ID_VIEW_APPLOOK_OFF_2007_BLUE);
+
+
+
+	/*
+	1.设置好文件夹 sys用于保存系统状态和log
+	2.做好配置文件
+	
+	
+	*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	SCM.Init();
@@ -225,4 +250,10 @@ void CMainFrame::OnFilePrintPreview()
 void CMainFrame::OnUpdateFilePrintPreview(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(IsPrintPreview());
+}
+
+
+void CMainFrame::OnButtonSysctrl()
+{
+	// TODO: 在此添加命令处理程序代码
 }

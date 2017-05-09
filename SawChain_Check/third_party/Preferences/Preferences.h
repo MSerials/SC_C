@@ -38,9 +38,6 @@ using namespace std;
 class CPreferences  
 {
 public:
-	CString m_strCurrentProjectName;
-
-public:
 	CPreferences();
 	virtual ~CPreferences();
 	
@@ -185,22 +182,13 @@ public:
 	int m_nSear_X, m_nSear_Y, m_nSear_W, m_nSear_H;
 
 	//IO卡 #define PARA_IO				(0x1<<2)
-	int deviceNumber;			//IO卡序列号
-	int m_nTriggerIdPort1;		//触发拍照
-	int m_nTriggerIdPort2;		//感应器？
-	int m_nTriggerIdPort3;		//原点感应器？
-	int m_nTriggerIdPort4;
-	int m_MotorSpinWise;
-	int m_MotorSpinWaves;
-	int m_MotorSpinSpeed;
-	int m_MotorSpinWavesPerTime;
-	int m_MotorCompenstate;
-	int m_mode;
-	int m_MotorSpinWise1;
-	int m_MotorSpinWaves1;
-	int m_MotorSpinSpeed1;
-	int m_MotorSpinWavesPerTime1;
-	int m_MotorCompenstate1;
+	struct _Motor
+	{
+		double Tacc;          
+		int waves;
+		int stVel;
+		int MaxVel;
+	};
 	int m_mode1;
 };
 //extern CPreferences *ini;
